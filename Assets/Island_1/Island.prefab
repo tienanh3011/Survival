@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5750888476394634831}
-  m_LocalRotation: {x: 0.089664936, y: 0.49855036, z: 0.051940642, w: -0.8606451}
-  m_LocalPosition: {x: 809.02203, y: -135.20636, z: 178.61847}
+  m_LocalRotation: {x: 0.266197, y: -0.076151386, z: -0.02105582, w: -0.96067524}
+  m_LocalPosition: {x: 202.90282, y: -24.87431, z: 146.14314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,8 +110,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5750888476611394746}
-  m_LocalRotation: {x: 0.089664936, y: 0.49855036, z: 0.051940642, w: -0.8606451}
-  m_LocalPosition: {x: 351.7342, y: -60.20636, z: -807.13324}
+  m_LocalRotation: {x: 0.266197, y: -0.076151386, z: -0.02105582, w: -0.96067524}
+  m_LocalPosition: {x: -254.38503, y: 50.12569, z: -839.6086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 5750888477391278627}
   - component: {fileID: 5750888477391278624}
   - component: {fileID: 5750888477391278625}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
