@@ -55,17 +55,19 @@ public class CraftingSystem : MonoBehaviour
             InventorySystem.Instance.RemoveItem(blueprintToCraft.Req2, blueprintToCraft.Req2amount);
         }
         StartCoroutine(calculate());
-        RefreshNeededItems();
+        
     }
     public IEnumerator calculate()
     {
-        yield return new WaitForSeconds(1f);
+        yield return 0;
+        
         InventorySystem.Instance.ReCalculeList();
+        RefreshNeededItems();
     }
 
     void Update()
     {
-        RefreshNeededItems();
+        
         if (Input.GetKeyDown(KeyCode.T) && !isOpen)
         {
             craftingScreenUI.SetActive(true);
@@ -84,7 +86,7 @@ public class CraftingSystem : MonoBehaviour
             isOpen = false;
         }
     }
-    private void RefreshNeededItems()
+    public void RefreshNeededItems()
     {
         int stone_count = 0;
         int stick_count = 0;
