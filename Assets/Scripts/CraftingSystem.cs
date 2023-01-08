@@ -12,7 +12,7 @@ public class CraftingSystem : MonoBehaviour
     Button craftAxeBTN;
     Text AxeReq1, AxeReq2;
     public bool isOpen;
-    public Blueprint AxeBLP = new Blueprint("Axe", 2, "Stone", 3, "Stick", 3);
+    private Blueprint axeBLP = new Blueprint("Axe", 2, "Stone", 3, "Stick", 3);
 
     public static CraftingSystem Instance { get;  set; }
     private void Awake()
@@ -34,7 +34,7 @@ public class CraftingSystem : MonoBehaviour
         AxeReq1 = toolScreenUI.transform.Find("Axe").transform.Find("req1").GetComponent<Text>();
         AxeReq2 = toolScreenUI.transform.Find("Axe").transform.Find("req2").GetComponent<Text>();
         craftAxeBTN = toolScreenUI.transform.Find("Axe").transform.Find("ButtonAxe").GetComponent<Button>();
-        craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(AxeBLP); });
+        craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(axeBLP); });
     }
     void OpenToolsCategory()
     {
