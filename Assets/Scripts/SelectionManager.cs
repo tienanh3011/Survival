@@ -13,6 +13,8 @@ public class SelectionManager : MonoBehaviour
     public Image centerDotImage;
     public Image handIcon;
     public bool handIsVisible;
+    public GameObject selectedTree;
+    public GameObject chopHolder;
     private void Start()
     {
         onTarget = false;
@@ -38,6 +40,28 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
             InteractableObject interactable =selectionTransform.GetComponent<InteractableObject>();
+            ChoppalbeTree choppalbeTree = selectionTransform.GetComponent<ChoppalbeTree>();
+            if(choppalbeTree&&choppalbeTree.playerInRange)
+            {
+                choppalbeTree.canBeChopped = true;
+                selectedTree = choppalbeTree.gameObject;
+                chopHolder.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (selectedTree!=null)
+                {
+                    selectedTree.gameObject.GetComponent<ChoppalbeTree>().canBeChopped = false;
+                    selectedTree = null;
+                    chopHolder.gameObject.SetActive(false);
+                }
+            }
+
+
+
+
+
+
 
             if (interactable&& interactable.playerInRange)
             {

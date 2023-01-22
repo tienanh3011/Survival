@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8532654618063843743}
   - component: {fileID: -3668324658444211810}
   m_Layer: 5
-  m_Name: Stone
+  m_Name: Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 147053756, guid: 2e06e44e7616b144284b8ece204fc496, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5670ececbae50904c83b3819eceaece2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -115,10 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b61919d47ed40141973105ca767c225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTrashable: 0
-  thisName: Stone
-  thisDescription: A simple stone
-  thisFunctionality: Can be used to craft various items
+  isTrashable: 1
+  thisName: Log
+  thisDescription: This piece of raw wood only looks heavy, it is actually lightweight
+    and can be carried around with ease. It os also the weakest among the different
+    types of wood.
+  thisFunctionality: As a common and basic material, it can be used to craft various
+    items, although only after being processed
   isConsumable: 0
   healthEffect: 0
   caloriesEffect: 0
