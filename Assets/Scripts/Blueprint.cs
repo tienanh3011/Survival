@@ -10,11 +10,13 @@ public class Blueprint : MonoBehaviour
     public int Req1amount;
     public int Req2amount;
     public int numofRequirements;
-    public Blueprint(string name, int reqNUM,string R1, int R1num,string R2,int R2num)
+    public int numberofItemsToProduce;
+    public Blueprint(string name,int producedItems, int reqNUM,string R1, int R1num,string R2,int R2num)
     {
         itemName=name;
         numofRequirements=reqNUM;
-        Req1=R1;
+        numberofItemsToProduce = producedItems;
+        Req1 =R1;
         Req2=R2;
         Req1amount=R1num;
         Req2amount=R2num;

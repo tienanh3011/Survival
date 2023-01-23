@@ -62,7 +62,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3680920916610851069, guid: 7db71e41a8717b1499eb3d01b97db7ef, type: 3}
       propertyPath: treeMaxHealth
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218939740196854527, guid: 7db71e41a8717b1499eb3d01b97db7ef, type: 3}
       propertyPath: m_Name

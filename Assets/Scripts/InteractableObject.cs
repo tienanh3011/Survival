@@ -14,10 +14,10 @@ public class InteractableObject : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E)&&playerInRange&&SelectionManager.Instance.onTarget&&SelectionManager.Instance.selectedObject==gameObject)
         {
-            if (!InventorySystem.Instance.CheckifFull())
+            if (!InventorySystem.Instance.CheckSlotAvailable(0)==false)
             {
                 InventorySystem.Instance.AddToInventory(ItemName);
-                Debug.Log("item added to inventory");
+                
                 Destroy(gameObject);
             }
             else 

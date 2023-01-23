@@ -83,7 +83,8 @@ public class InventorySystem : MonoBehaviour
     }
     public void AddToInventory(string itemName)
     {
-            whatslotToEquip = FindNextEmptySlot();
+        SoundManager.Instance.PlaySound(SoundManager.Instance.pickupItemSound);
+        whatslotToEquip = FindNextEmptySlot();
             itemToAdd=Instantiate(Resources.Load<GameObject>(itemName),whatslotToEquip.transform.position,whatslotToEquip.transform.rotation);
             itemToAdd.transform.SetParent(whatslotToEquip.transform);
             itemList.Add(itemName);
@@ -110,17 +111,17 @@ public class InventorySystem : MonoBehaviour
         }
         return new GameObject();
     }
-    public bool CheckifFull()
+    public bool CheckSlotAvailable(int emptyMeeded)
     {
-        int couter = 0;
+        int emptySlot = 0;
         foreach(GameObject slot in slotList)
         {
             if(slot.transform.childCount>0)
             {
-                couter += 1;
+                emptySlot += 1;
             }
         }
-        if(couter==21)
+        if(emptySlot >=emptyMeeded)
         {
             return true;
         }

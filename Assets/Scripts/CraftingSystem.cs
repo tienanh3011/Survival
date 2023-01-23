@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class CraftingSystem : MonoBehaviour
 {
     public GameObject craftingScreenUI;
-    public GameObject toolScreenUI;
+    public GameObject toolScreenUI, survivalScreenUI, refineScreenUI;
     public List<string>inventoryItemList=new List<string>();
-    Button toolsBTN;
-    Button craftAxeBTN;
-    Text AxeReq1, AxeReq2;
+    Button toolsBTN, survivalBTN, refineBTN;
+    Button craftAxeBTN,craftPlankBTN;
+    Text AxeReq1, AxeReq2, PlankReq1;
     public bool isOpen;
-    private Blueprint axeBLP = new Blueprint("Axe", 2, "Stone", 3, "Stick", 3);
+    private Blueprint axeBLP = new Blueprint("Axe",1,2, "Stone", 3, "Stick", 3);
+    private Blueprint PlankBLP = new Blueprint("Plank",2,1, "Log", 1,"",0);
 
     public static CraftingSystem Instance { get;  set; }
     private void Awake()
@@ -31,18 +32,58 @@ public class CraftingSystem : MonoBehaviour
         isOpen = false;
         toolsBTN=craftingScreenUI.transform.Find("ToolsButton").GetComponent<Button>();
         toolsBTN.onClick.AddListener(delegate { OpenToolsCategory(); });
+
+        survivalBTN = craftingScreenUI.transform.Find("SurvivalButton").GetComponent<Button>();
+        survivalBTN.onClick.AddListener(delegate { OpenSurvivalCategory(); });
+
+        refineBTN = craftingScreenUI.transform.Find("RefineButton").GetComponent<Button>();
+        refineBTN.onClick.AddListener(delegate { OpenRefineCategory(); });
+
+        //Axe
+
         AxeReq1 = toolScreenUI.transform.Find("Axe").transform.Find("req1").GetComponent<Text>();
         AxeReq2 = toolScreenUI.transform.Find("Axe").transform.Find("req2").GetComponent<Text>();
         craftAxeBTN = toolScreenUI.transform.Find("Axe").transform.Find("ButtonAxe").GetComponent<Button>();
         craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(axeBLP); });
+        //Plank
+
+        PlankReq1 = refineScreenUI.transform.Find("Plank").transform.Find("req1").GetComponent<Text>();
+        
+        craftPlankBTN = refineScreenUI.transform.Find("Plank").transform.Find("Button").GetComponent<Button>();
+        craftPlankBTN.onClick.AddListener(delegate { CraftAnyItem(PlankBLP); });
     }
     void OpenToolsCategory()
     {
         craftingScreenUI.SetActive(false);
+        refineScreenUI.SetActive(false);
+        survivalScreenUI.SetActive(false);
+
         toolScreenUI.SetActive(true);
+    }
+    void OpenSurvivalCategory()
+    {
+        craftingScreenUI.SetActive(false);
+        toolScreenUI.SetActive(false);
+        refineScreenUI.SetActive(false);
+
+        survivalScreenUI.SetActive(true);
+    }
+    void OpenRefineCategory()
+    {
+        craftingScreenUI.SetActive(false);
+        toolScreenUI.SetActive(false);
+        survivalScreenUI.SetActive(false);
+
+        refineScreenUI.SetActive(true);
     }
     void CraftAnyItem(Blueprint blueprintToCraft)
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.craftingSound);
+        StartCoroutine(craftedDelayForSound(blueprintToCraft));
+              
+
+
+
         InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
         if (blueprintToCraft.numofRequirements == 1)
         {
@@ -64,6 +105,14 @@ public class CraftingSystem : MonoBehaviour
         InventorySystem.Instance.ReCalculeList();
         RefreshNeededItems();
     }
+   IEnumerator craftedDelayForSound(Blueprint blueprintToCraft)
+   {
+        yield return new WaitForSeconds(1f);
+        for (var i = 1; i < blueprintToCraft.numberofItemsToProduce; i++)
+        {
+            InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
+        }
+    }
 
     void Update()
     {
@@ -82,6 +131,8 @@ public class CraftingSystem : MonoBehaviour
         {
             craftingScreenUI.SetActive(false);
             toolScreenUI.SetActive(false);
+            refineScreenUI.SetActive(false);
+            survivalScreenUI.SetActive(false);
             if (!InventorySystem.Instance.isOpen)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -96,6 +147,7 @@ public class CraftingSystem : MonoBehaviour
     {
         int stone_count = 0;
         int stick_count = 0;
+        int log_count = 0;
         inventoryItemList = InventorySystem.Instance.itemList;
         foreach (string itemName in inventoryItemList)
         {
@@ -107,13 +159,16 @@ public class CraftingSystem : MonoBehaviour
                 case "Stick":
                     stick_count += 1;
                     break;
+                case "Log":
+                    log_count += 1;
+                    break;
             }
         }
 
         //-----AXE----//
     AxeReq1.text = "3 Stone[" + stone_count + "]";
     AxeReq2.text = "3 Stick[" + stick_count + "]";
-        if (stone_count >= 3 && stick_count >= 3)
+        if (stone_count >= 3 && stick_count >= 3&&InventorySystem.Instance.CheckSlotAvailable(1))
         {
             craftAxeBTN.gameObject.SetActive(true);
 
@@ -121,6 +176,18 @@ public class CraftingSystem : MonoBehaviour
         else
         {
             craftAxeBTN.gameObject.SetActive(false);
+        }
+        //-----Plank----//
+        PlankReq1.text = "1 Log[" + log_count + "]";
+       
+        if (log_count >= 1 &&InventorySystem.Instance.CheckSlotAvailable(2))
+        {
+            craftPlankBTN.gameObject.SetActive(true);
+
+        }
+        else
+        {
+            craftPlankBTN.gameObject.SetActive(false);
         }
     }
 
