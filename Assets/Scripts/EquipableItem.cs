@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquipableItem : MonoBehaviour
 {
     public Animator animator;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,13 @@ public class EquipableItem : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButton(0) && InventorySystem.Instance.isOpen == false && 
-            CraftingSystem.Instance.isOpen == false && SelectionManager.Instance.handIsVisible == false)
+            CraftingSystem.Instance.isOpen == false && SelectionManager.Instance.handIsVisible == false &&
+            !ConstructionManager.Instance.inConstructionMode)
         {
+          
             StartCoroutine(SwingSoundDelay());
             animator.SetTrigger("hit");
+            
         }
     }
     public void GetHit()

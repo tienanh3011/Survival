@@ -32,6 +32,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public bool isInsideQuickSlot;
 
     public bool isSelected;
+    public bool isUseable;
+    
 
     private void Start()
     {
@@ -80,15 +82,24 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 itemPendingConsumption = gameObject;
                 consumingFunction(healthEffect, caloriesEffect, hydrationEffect);
             }
-                if(isEquippale&&isInsideQuickSlot==false&&EquipSystem.Instance.CheckIfFull()==false)
-                {
+            if(isEquippale&&isInsideQuickSlot==false&&EquipSystem.Instance.CheckIfFull()==false)
+             {
                     EquipSystem.Instance.AddToQuickSlots(gameObject);
                     isInsideQuickSlot = true;
 
-                }
+             }
+            if(isUseable)
+            {
+                ConstructionManager.Instance.itemToBeDestroyed = gameObject;
+                gameObject.SetActive(false);
+                UseItem();
+            }
+
         }
 
     }
+    
+
 
     // Triggered when the mouse button is released over the item that has this script.
     public void OnPointerUp(PointerEventData eventData)
@@ -101,9 +112,36 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 InventorySystem.Instance.ReCalculeList();
                 CraftingSystem.Instance.RefreshNeededItems();
             }
+           
         }
     }
-
+    private void UseItem()
+    {
+        itemInfoUI.SetActive(false);
+        InventorySystem.Instance.isOpen = false;
+        InventorySystem.Instance.inventoryScreenUI.SetActive(false);
+        CraftingSystem.Instance.isOpen = false;
+        CraftingSystem.Instance.craftingScreenUI.SetActive(false);
+        CraftingSystem.Instance.toolScreenUI.SetActive(false);
+        CraftingSystem.Instance.survivalScreenUI.SetActive(false);
+        CraftingSystem.Instance.refineScreenUI.SetActive(false);
+        CraftingSystem.Instance.constructionScreenUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        SelectionManager.Instance.EnableSelection();
+        SelectionManager.Instance.enabled = true;
+        switch (gameObject.name)
+        {
+            case "Foundation(Clone)":
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            case "Foundation":
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            default:
+                break;//do nothing
+        }
+    }
     private void consumingFunction(float healthEffect, float caloriesEffect, float hydrationEffect)
     {
         itemInfoUI.SetActive(false);
