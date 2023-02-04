@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isMoving = false;
-            SoundManager.Instance.grassWalkSound.Stop();
+            //SoundManager.Instance.grassWalkSound.Stop();
 
         }
         lastPosition = gameObject.transform.position;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1197579172}
   m_Layer: 0
   m_Name: Tree_Parent
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,8 +61,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 8828755380969872051}
     m_Modifications:
     - target: {fileID: 3680920916610851069, guid: 7db71e41a8717b1499eb3d01b97db7ef, type: 3}
+      propertyPath: treePosition
+      value: 
+      objectReference: {fileID: 3454008437567350704}
+    - target: {fileID: 3680920916610851069, guid: 7db71e41a8717b1499eb3d01b97db7ef, type: 3}
       propertyPath: treeMaxHealth
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099361987847077531, guid: 7db71e41a8717b1499eb3d01b97db7ef, type: 3}
+      propertyPath: m_Size.y
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7218939740196854527, guid: 7db71e41a8717b1499eb3d01b97db7ef, type: 3}
       propertyPath: m_Name
