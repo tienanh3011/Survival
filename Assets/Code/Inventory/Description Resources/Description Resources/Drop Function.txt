@@ -1,0 +1,9 @@
+    public void DropItem(Slot slot)
+    {
+        PickUp pickup = Instantiate(dropModel, dropPos).AddComponent<PickUp>();
+
+        pickup.data = slot.data;
+        pickup.stackSize = slot.stackSize;
+
+        slot.Clean();
+    }
